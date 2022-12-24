@@ -1,6 +1,13 @@
 class User {
-    public String name;
-    private Chat chatroom;
+    protected static int id = 0;
+    String nickname;
+    String name;
+    String status;
+    public Chat chatroom;
+
+    static {
+        User.id = 0;
+    }
 
     public User(String name, Chat chatroom) {
         this.name = name;
@@ -27,7 +34,17 @@ class User {
         }
     }
 
-    void sendMsg(String text) {
+    void sendMsg(String text, ChatingRoom chat) {
+        this.chatroom = chat;
         chatroom.sendMessage(text, this);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("id: %d\n" +
+                        "Nickname: %s\n" +
+                        "Name: %s\n" +
+                        "Status: %s\n",
+                ++User.id, nickname, name, status);
     }
 }
